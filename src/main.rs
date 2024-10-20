@@ -31,9 +31,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("listening on port {:?}", addr);
 
-    let sss = tonic_reflection::server::Builder::configure()
+    // let sss = tonic_reflection::server::Builder::configure()
+    let sss = tonic_reflect_protobuf::server::Builder::configure()
         .register_encoded_file_descriptor_set(include_bytes!("/Users/codeman/Documents/Github/mycode6/grpc-proxy-test/bin"))
-        .build_v1alpha().unwrap();
+        .build().unwrap();
 
     Server::builder()
         .add_service(EchoServiceServer::new(EchoAPI::default()))
