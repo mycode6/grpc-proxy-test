@@ -8,10 +8,21 @@ message Message {
     string value = 1;
 }
 
+message HelloRequest {
+    string id = 1;
+    Message message = 2;
+}
+
 service EchoService {
-    rpc Echo(Message) returns (Message) {
-            option (google.api.http) = {
-            post: "/v1/example/echo"
+    rpc Echo(HelloRequest) returns (Message) {
+        option (google.api.http) = {
+            patch: "/v1/echo/{id}"
+            body: "message"
+        };
+    }
+    rpc Echo1(Message) returns (Message) {
+        option (google.api.http) = {
+            post: "/v1/echo"
             body: "*"
         };
     }
